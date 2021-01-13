@@ -1,4 +1,4 @@
-items = {
+dict_items = {
     "name": ["milk", "sugar", "flour", "coffee"],
     "quanitity": ["120", "1000", "12000", "30"],
     "unit": ["l", "kg", "kg", "kg"],
@@ -11,6 +11,7 @@ action_item = str()
 def get_items():
 
     print("Name\tQuantity\tUnit\tUnit Price (PLN)")
+    print(dict_items)
     # q = items.get("quantity")
     # u = items.get("unit")
     # up = items.get("unit_price")
@@ -18,6 +19,28 @@ def get_items():
     #     obj = items.get("name")
     #     print(obj[i])
     #     print(q[i])
+
+
+def add_item():
+    print("Adding to warehouse…")
+
+    product_name = input("Item name: ")
+    product_quantity = input("Item quantity: ")
+    product_unit = input("Product unit: ")
+    product_unit_price = input("Product unit price: ")
+
+    dict_items["name"].append(product_name)
+    dict_items["quanitity"].append(product_quantity)
+    dict_items["unit"].append(product_unit)
+    dict_items["unit_price"].append(product_unit_price)
+
+    print("Item added!")
+
+    # dict_items["name"].append(input("Item name: "))
+    # dict_items["quantity"].append(input("Item quantity: "))
+    # dict_items["unit"].append(input("Product unit: "))
+    # dict_items["unit_price"].append(input("Product unit price:  "))
+
 
 if __name__ == "__main__":
 
@@ -30,3 +53,5 @@ if __name__ == "__main__":
             exit()
         elif action_item == "show":
             get_items()
+        elif action_item == "add":
+            add_item()
