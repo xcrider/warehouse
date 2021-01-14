@@ -11,14 +11,9 @@ action_item = str()
 def get_items():
 
     print("Name\tQuantity\tUnit\tUnit Price (PLN)")
-    print(dict_items)
-    # q = items.get("quantity")
-    # u = items.get("unit")
-    # up = items.get("unit_price")
-    # for i in items.values():
-    #     obj = items.get("name")
-    #     print(obj[i])
-    #     print(q[i])
+
+    for n, q, u, up in dict_items.values():
+        print(f"{n} \t {q} \t {u} \t  {up}")
 
 
 def add_item():
