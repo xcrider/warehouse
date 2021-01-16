@@ -1,8 +1,8 @@
 dict_items = {
-    "name": ["milk", "sugar", "flour", "coffee"],
-    "quanitity": ["120", "1000", "12000", "30"],
-    "unit": ["l", "kg", "kg", "kg"],
-    "unit_price": ['2.3', '3', '1.2', '40']
+    "name": ["milk", "sugar", "flour", "coffee", "salt", "mayoneise"],
+    "quantity": ["120", "1000", "12000", "30", "1", "12"],
+    "unit": ["l", "kg", "kg", "kg", "kg", "kg"],
+    "unit_price": ['2.3', '3', '1.2', '40', '5.50', '11']
 }
 
 action_item = str()
@@ -12,8 +12,11 @@ def get_items():
 
     print("Name\tQuantity\tUnit\tUnit Price (PLN)")
 
-    for n, q, u, up in dict_items.values():
-        print(f"{n} \t {q} \t {u} \t  {up}")
+    for i in range(0,len(dict_items["name"])):
+        print(f"{dict_items['name'][i]} \t {dict_items['quantity'][i]} \t \t {dict_items['unit'][i]} \t {dict_items['unit_price'][i]} ")
+
+    # for i, n, q, u, up in enumerate(dict_items.values, 0()):
+    #      print(f"{n[i]} \t {q[i]} \t {u[i]} \t {up[i]}")
 
 
 def add_item():
@@ -37,9 +40,27 @@ def add_item():
     # dict_items["unit_price"].append(input("Product unit price:  "))
 
 
+def sell_item(item_name, quantity):
+    item_index = int()
+    for i, item in enumerate(dict_items["name"]):
+        if item == item_name:
+            item_index = i
+            
+            if int(dict_items["quantity"][item_index]) >= item_quantity:
+                dict_items["quantity"][item_index] = int(dict_items["quantity"][item_index]) - item_quantity
+                print(f"Successfuly sold {item_quantity} {dict_items['unit'][item_index]} of {item_name}")
+            else:
+                print("Opss… we do not have enought of this for you!")
+                break
+        else:
+            print("Opss… we do not have that product.")
+        
+
+
 if __name__ == "__main__":
 
-    get_items()
+    item_name = "sugar"
+    item_quantity = 1
 
     while action_item.lower() != exit:
         action_item = str(input("What would you like to do? "))
@@ -50,3 +71,7 @@ if __name__ == "__main__":
             get_items()
         elif action_item == "add":
             add_item()
+        elif action_item == "sell":
+            item_name = input("What product you'd like to buy? ")
+            item_quantity = int(input("How much of it? "))
+            sell_item(item_name, item_quantity)
