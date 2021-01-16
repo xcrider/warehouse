@@ -45,7 +45,7 @@ def sell_item(item_name, quantity):
     for i, item in enumerate(dict_items["name"]):
         if item == item_name:
             item_index = i
-            
+
             if int(dict_items["quantity"][item_index]) >= item_quantity:
                 dict_items["quantity"][item_index] = int(dict_items["quantity"][item_index]) - item_quantity
                 print(f"Successfuly sold {item_quantity} {dict_items['unit'][item_index]} of {item_name}")
@@ -54,13 +54,9 @@ def sell_item(item_name, quantity):
                 break
         else:
             print("Opss… we do not have that product.")
-        
 
 
 if __name__ == "__main__":
-
-    item_name = "sugar"
-    item_quantity = 1
 
     while action_item.lower() != exit:
         action_item = str(input("What would you like to do? "))
