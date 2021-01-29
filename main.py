@@ -10,9 +10,11 @@ action_item = str()
 
 def get_items():
 
+    '''Listing all item available in warehouse with detail informations'''
+
     print("Name\tQuantity\tUnit\tUnit Price (PLN)")
 
-    for i in range(0,len(dict_items["name"])):
+    for i in range(0, len(dict_items["name"])):
         print(f"{dict_items['name'][i]} \t {dict_items['quantity'][i]} \t \t {dict_items['unit'][i]} \t {dict_items['unit_price'][i]} ")
 
     # for i, n, q, u, up in enumerate(dict_items.values, 0()):
@@ -20,15 +22,29 @@ def get_items():
 
 
 def add_item():
-    print("Adding to warehouse…")
+
+    '''User provide input for new product to our warehouse.'''
 
     product_name = input("Item name: ")
     product_quantity = input("Item quantity: ")
     product_unit = input("Product unit: ")
-    product_unit_price = input("Product unit price: ")
+    product_unit_price = float(input("Product unit price: "))
+    save_item(product_name, product_quantity, product_unit, product_unit_price)
+
+
+def save_item(product_name, product_quantity, product_unit, product_unit_price):
+
+    '''Adding item to dict_items warehouse'''
+
+    print("Adding to warehouse…")
+
+    # ?? Jak To zrobić lepiej? 
+    # Chodzi mi o dodawanie nowego rekordu do słownika.
+    # Tutaj dodaje to przez 4 linijki.
+    # Ale w pechowym wypadku moze sie okazać ze po 1 linicjsce program sie wylączy i dodam niepelny rekord co w takim wypadku spowoduje spustoszenie
 
     dict_items["name"].append(product_name)
-    dict_items["quanitity"].append(product_quantity)
+    dict_items["quantity"].append(product_quantity)
     dict_items["unit"].append(product_unit)
     dict_items["unit_price"].append(product_unit_price)
 
@@ -41,6 +57,10 @@ def add_item():
 
 
 def sell_item(item_name, quantity):
+
+    '''This funcion allows adding sales into sysmtem.
+    This functions updates quantity of products available in warehouse.'''
+
     item_index = int()
     for i, item in enumerate(dict_items["name"]):
         if item == item_name:
