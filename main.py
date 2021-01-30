@@ -75,7 +75,7 @@ def warehouse_update(item_name, item_quantity, index):
 
     '''This function updates warehouse stock accordingly to the sale'''
 
-     if int(dict_items['quantity'][index]) >= item_quantity:
+    if int(dict_items['quantity'][index]) >= item_quantity:
         dict_items['quantity'][index] = int(dict_items['quantity'][index]) - item_quantity
         print(f"Successfuly sold {item_quantity} {dict_items['unit'][index]} of {item_name}.")
         print(f"There is still {dict_items['quantity'][index]} {dict_items['unit'][index]} of {item_name} in warehouse.")    
