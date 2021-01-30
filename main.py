@@ -50,20 +50,32 @@ def add():
 
 def sell():
 
-    '''This funcion allows adding sales into system.
-    This functions updates quantity of products available in warehouse.'''
+    '''This functions takes user input data and validates it. 
+    If that are valid it calls warehouse_update function'''
     
     item_name = input("What product you'd like to buy? ")
+    
+    try:
+        i = dict_items["name"].index(item_name)
+    except ValueError:
+        print("Sorry we don't have this product!")
+        print("Here's a list of available product!")
+        show()
+
     item_quantity = int(input("How much of it? "))
     
-    i = dict_items["name"].index(item_name)
     if int(dict_items['quantity'][i]) >= item_quantity:
-        dict_items['quantity'][i] = int(dict_items['quantity'][i]) - item_quantity
-        print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
-        print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
+       warehouse_update(item_name, item_quantity,i)
     else:
         print(f"Opss… we do not have enought of this for you! Maximum available is {dict_items['quantity'][i]} {dict_items['unit'][i]} of {dict_items['name'][i]}.")
         warehouse_action()
+
+    
+def warehouse_update(item_name, item_quantity, index):
+     if int(dict_items['quantity'][index]) >= item_quantity:
+        dict_items['quantity'][index] = int(dict_items['quantity'][index]) - item_quantity
+        print(f"Successfuly sold {item_quantity} {dict_items['unit'][index]} of {item_name}.")
+        print(f"There is still {dict_items['quantity'][index]} {dict_items['unit'][index]} of {item_name} in warehouse.")    
 
     # for i, item in enumerate(dict_items["name"]):
     #     if item == item_name:
