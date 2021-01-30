@@ -56,18 +56,22 @@ def sell():
     item_name = input("What product you'd like to buy? ")
     item_quantity = int(input("How much of it? "))
     
-    for i, item in enumerate(dict_items["name"]):
-        if item == item_name:
+    i = dict_items["name"].index(item_name)
+    if int(dict_items['quantity'][i]) >= item_quantity:
+        dict_items['quantity'][i] = int(dict_items['quantity'][i]) - item_quantity
+        print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
+        print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
+    else:
+        print(f"Opss… we do not have enought of this for you! Maximum available is {dict_items['quantity'][i]} {dict_items['unit'][i]} of {dict_items['name'][i]}.")
+        warehouse_action()
 
-            if int(dict_items["quantity"][i]) >= item_quantity:
-                dict_items["quantity"][i] = int(dict_items["quantity"][i]) - item_quantity
-                print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
-                print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
-            else:
-                print(f"Opss… we do not have enought of this for you! Maximum available is {dict_items['quantity'][i]} {dict_items['unit'][i]} of {dict_items['name'][i]}.")
-            break
-        else:
-            print("Opss… we do not have that product.")
+    # for i, item in enumerate(dict_items["name"]):
+    #     if item == item_name:
+    #         if int(dict_items["quantity"][i]) >= item_quantity:
+    #             dict_items["quantity"][i] = int(dict_items["quantity"][i]) - item_quantity
+    #             print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
+    #             print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
+    #         
 
 
 def close():
@@ -90,8 +94,8 @@ def warehouse_action():
 
     action = action_dict.get(action_type)
     action()
-   
+
 
 if __name__ == "__main__":
-    
+
     warehouse_action()
