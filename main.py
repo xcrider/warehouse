@@ -17,8 +17,7 @@ def show():
     for i in range(0, len(dict_items["name"])):
         print(f"{dict_items['name'][i]} \t {dict_items['quantity'][i]} \t \t {dict_items['unit'][i]} \t {dict_items['unit_price'][i]} ")
 
-    # for i, n, q, u, up in enumerate(dict_items.values, 0()):
-    #      print(f"{n[i]} \t {q[i]} \t {u[i]} \t {up[i]}")
+    warehouse_action()
 
 
 def add():
@@ -47,6 +46,7 @@ def add():
 
     # for i, value in enumerate(dict_items.items()):
     #     dict_items.values(append(new_product[i]))
+
 
 def sell():
 
@@ -86,7 +86,6 @@ def warehouse_update(item_name, item_quantity, index):
     #             dict_items["quantity"][i] = int(dict_items["quantity"][i]) - item_quantity
     #             print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
     #             print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
-    #         
 
 
 def close():
@@ -96,20 +95,29 @@ def close():
     print("Exiting... Bye")
     exit
 
+
 def warehouse_action():
+
+    '''This is main program function, where user selects operation'''
+    
     action_dict = {
         1: show,
         2: add,
         3: sell,
         4: close
     }
-
+    
     [print(key, value.__name__) for key, value in action_dict.items()]
-    action_type = int(input("Select the operation by providing the corresponding number: "))
 
-    action = action_dict.get(action_type)
-    action()
+    try:
+        action_type = int(input("Select the operation by providing the corresponding number: "))
 
+        action = action_dict.get(action_type)
+        action()
+
+    except TypeError:
+        print("Opps, there is no such operation. Select operation from the list.\n")
+        warehouse_action()
 
 if __name__ == "__main__":
 
