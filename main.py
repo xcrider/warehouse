@@ -8,7 +8,7 @@ dict_items = {
 action_item = str()
 
 
-def get_items():
+def show():
 
     '''Listing all item available in warehouse with detail informations'''
 
@@ -21,73 +21,77 @@ def get_items():
     #      print(f"{n[i]} \t {q[i]} \t {u[i]} \t {up[i]}")
 
 
-def add_item():
+def add():
 
-    '''User provide input for new product to our warehouse.'''
+    '''Adding item to dict_items warehouse from user input. '''
+
+    print("Adding to warehouse…")
 
     product_name = input("Item name: ")
     product_quantity = input("Item quantity: ")
     product_unit = input("Product unit: ")
-    product_unit_price = float(input("Product unit price: "))
-    save_item(product_name, product_quantity, product_unit, product_unit_price)
-
-
-def save_item(product_name, product_quantity, product_unit, product_unit_price):
-
-    '''Adding item to dict_items warehouse'''
-
-    print("Adding to warehouse…")
-
-    # ?? Jak To zrobić lepiej? 
-    # Chodzi mi o dodawanie nowego rekordu do słownika.
-    # Tutaj dodaje to przez 4 linijki.
-    # Ale w pechowym wypadku moze sie okazać ze po 1 linicjsce program sie wylączy i dodam niepelny rekord co w takim wypadku spowoduje spustoszenie
+    product_unit_price = input("Product unit price: ")
 
     dict_items["name"].append(product_name)
-    dict_items["quantity"].append(product_quantity)
+    dict_items["quanitity"].append(product_quantity)
     dict_items["unit"].append(product_unit)
     dict_items["unit_price"].append(product_unit_price)
 
     print("Item added!")
 
-    # dict_items["name"].append(input("Item name: "))
-    # dict_items["quantity"].append(input("Item quantity: "))
-    # dict_items["unit"].append(input("Product unit: "))
-    # dict_items["unit_price"].append(input("Product unit price:  "))
+    # new_product = []
+    # new_product.append(input("Product name: "))
+    # new_product.append(input("Product quantity: "))
+    # new_product.append(input("Product unit: "))
+    # new_product.append(float(input("Product unit price: ")))   
 
+    # for i, value in enumerate(dict_items.items()):
+    #     dict_items.values(append(new_product[i]))
 
-def sell_item(item_name, quantity):
+def sell():
 
-    '''This funcion allows adding sales into sysmtem.
+    '''This funcion allows adding sales into system.
     This functions updates quantity of products available in warehouse.'''
-
-    item_index = int()
+    
+    item_name = input("What product you'd like to buy? ")
+    item_quantity = int(input("How much of it? "))
+    
     for i, item in enumerate(dict_items["name"]):
         if item == item_name:
-            item_index = i
 
-            if int(dict_items["quantity"][item_index]) >= item_quantity:
-                dict_items["quantity"][item_index] = int(dict_items["quantity"][item_index]) - item_quantity
-                print(f"Successfuly sold {item_quantity} {dict_items['unit'][item_index]} of {item_name}")
+            if int(dict_items["quantity"][i]) >= item_quantity:
+                dict_items["quantity"][i] = int(dict_items["quantity"][i]) - item_quantity
+                print(f"Successfuly sold {item_quantity} {dict_items['unit'][i]} of {item_name}.")
+                print(f"There is still {dict_items['quantity'][i]} {dict_items['unit'][i]} of {item_name} in warehouse.")
             else:
-                print("Opss… we do not have enought of this for you!")
-                break
+                print(f"Opss… we do not have enought of this for you! Maximum available is {dict_items['quantity'][i]} {dict_items['unit'][i]} of {dict_items['name'][i]}.")
+            break
         else:
             print("Opss… we do not have that product.")
 
 
-if __name__ == "__main__":
+def close():
 
-    while action_item.lower() != exit:
-        action_item = str(input("What would you like to do? "))
-        if action_item == "exit":
-            print("Exiting... Bye")
-            exit()
-        elif action_item == "show":
-            get_items()
-        elif action_item == "add":
-            add_item()
-        elif action_item == "sell":
-            item_name = input("What product you'd like to buy? ")
-            item_quantity = int(input("How much of it? "))
-            sell_item(item_name, item_quantity)
+    '''Exit program'''
+
+    print("Exiting... Bye")
+    exit
+
+def warehouse_action():
+    action_dict = {
+        1: show,
+        2: add,
+        3: sell,
+        4: close
+    }
+
+    [print(key, value.__name__) for key, value in action_dict.items()]
+    action_type = int(input("Select the operation by providing the corresponding number: "))
+
+    action = action_dict.get(action_type)
+    action()
+   
+
+if __name__ == "__main__":
+    
+    warehouse_action()
